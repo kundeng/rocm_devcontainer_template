@@ -1,0 +1,23 @@
+{
+  "name": "ROCm 7.1 TensorFlow",
+  "image": "rocm/tensorflow:rocm7.1-py3.12-tf2.20-dev",
+  "runArgs": [
+    "--device=/dev/kfd",
+    "--device=/dev/dri",
+    "--group-add=video",
+    "--ipc=host",
+    "--shm-size=16g"
+  ],
+  "containerEnv": {
+    "HIP_VISIBLE_DEVICES": "0"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  },
+  "postCreateCommand": "python3 - <<'EOF'\nimport tensorflow as tf\nprint(tf.config.list_physical_devices('GPU'))\nEOF"
+}

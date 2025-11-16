@@ -1,0 +1,13 @@
+name: Verify ROCm DevContainer Build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate AMD image availability
+        run: |
+          docker pull rocm/dev-ubuntu-24.04:7.1-complete
+          docker pull rocm/pytorch:rocm7.1_ubuntu22.04_py3.10_pytorch_release_2.8.0
+          docker pull rocm/tensorflow:rocm7.1-py3.12-tf2.20-dev
+          docker pull rocm/vllm:rocm7.1_ubuntu22.04_py3.10_vllm_release_latest

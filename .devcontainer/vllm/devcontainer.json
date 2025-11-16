@@ -1,0 +1,23 @@
+{
+  "name": "ROCm 7.1 vLLM",
+  "image": "rocm/vllm:rocm7.1_ubuntu22.04_py3.10_vllm_release_latest",
+  "runArgs": [
+    "--device=/dev/kfd",
+    "--device=/dev/dri",
+    "--group-add=video",
+    "--ipc=host",
+    "--shm-size=16g"
+  ],
+  "containerEnv": {
+    "HIP_VISIBLE_DEVICES": "0"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  },
+  "postCreateCommand": "python3 - <<'EOF'\nfrom vllm import LLM\nprint('vLLM initialized successfully')\nEOF"
+}
